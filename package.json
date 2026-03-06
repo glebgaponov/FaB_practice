@@ -1,0 +1,23 @@
+{
+  "name": "practice_1",
+  "version": "1.0.0",
+  "description": "https://glebgaponov.github.io/FaB_practice/",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/glebgaponov/FaB_practice.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/glebgaponov/FaB_practice/issues"
+  },
+  "homepage": "https://github.com/glebgaponov/FaB_practice#readme",
+  "dependencies": {
+    "express": "^5.2.1"
+  }
+}
