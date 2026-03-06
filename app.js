@@ -2,59 +2,76 @@ const express = require('express');
 const app = express();
 const port = 3000;
 
+let users = [
+    {id: 1, name: 'Петр', age: 16},
+    {id: 2, name: 'Иван', age: 18},
+    {id: 3, name: 'Дарья', age: 20},
+]
+
+// Middleware для парсинга JSON
 app.use(express.json());
 
-// список товаров
-let products = [
-    { id: 1, name: "Ноутбук", price: 50000 },
-    { id: 2, name: "Телефон", price: 30000 }
-];
-
-// получить все товары
-app.get('/products', (req, res) => {
-    res.json(products);
+// Главная страница
+app.get('/', (req, res) => {
+  res.send('Главная страница');
 });
 
-// получить товар по id
-app.get('/products/:id', (req, res) => {
-    const product = products.find(p => p.id == req.params.id);
-    res.json(product);
+// CRUD
+app.get('/users', (req, res) => {
+  res.send(JSON.stringify(users));
 });
 
-// добавить товар
-app.post('/products', (req, res) => {
-    const { name, price } = req.body;
+app.get('/users/:id', (req, res) => {
+    let user = users.find(u => u.id == req.params.id);
+  res.send(JSON.stringify(user));
+});
 
-    const newProduct = {
+app.post('/users', (req, res) => {
+  const { name, age } = req.body;
+
+    const newUser = {
         id: Date.now(),
         name,
-        price
+        age
     };
 
-    products.push(newProduct);
-    res.status(201).json(newProduct);
+    users.push(newUser);
+    res.status(201).json(newUser);
 });
 
-// изменить товар
-app.patch('/products/:id', (req, res) => {
-    const product = products.find(p => p.id == req.params.id);
+app.put('/users/:id', (req, res) => {
+  const user = users.find(u => u.id == req.params.id);
+    const { name, age } = req.body;
+    if (name !== undefined) user.name = name;
+    if (age !== undefined) user.age = age;
 
-    if (!product) return res.status(404).send("Товар не найден");
-
-    const { name, price } = req.body;
-
-    if (name !== undefined) product.name = name;
-    if (price !== undefined) product.price = price;
-
-    res.json(product);
+    res.json(user);
 });
 
-// удалить товар
-app.delete('/products/:id', (req, res) => {
-    products = products.filter(p => p.id != req.params.id);
-    res.send("Товар удалён");
+app.patch('/users/:id', (req, res) => {
+    const userId = parseInt(req.params.id);
+    const userIndex = users.findIndex(u => u.id === userId);
+    
+    const user = users[userIndex];
+    const { name, age } = req.body;
+    
+    if (name !== undefined) {
+        user.name = name;
+    }
+    if (age !== undefined) {
+        user.age = age;
+    }
+    
+    users[userIndex] = user;
+    res.json(user);
 });
 
+app.delete('/users/:id', (req, res) => {
+    users = users.filter(u => u.id != req.params.id);
+  res.send('Ok');
+});
+
+// Запуск сервера
 app.listen(port, () => {
-    console.log(`Сервер запущен http://localhost:${port}`);
+  console.log(`Сервер запущен на http://localhost:${port}`);
 });
