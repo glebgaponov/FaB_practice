@@ -1,0 +1,36 @@
+.product-card {
+    padding: 16px;
+    border: 1px solid #ccc;
+    border-radius: 12px;
+    max-width: 300px;
+  }
+  
+  .product-card__image {
+    width: 100%;
+    border-radius: 8px;
+  }
+  
+  .product-card__title {
+    font-size: 20px;
+    margin: 8px 0;
+  }
+  
+  .product-card__description {
+    font-size: 16px;
+    color: #555;
+  }
+  
+  .product-card--featured {
+    border: 2px solid #ff07ac;
+  }
+  
+  .btn {
+    padding: 10px 14px;
+    background-color: #2ecc71;
+    color: white;
+    border-radius: 8px;
+    text-decoration: none;
+    display: inline-block;
+    text-align: center;
+    margin-top: 10px;
+  }
